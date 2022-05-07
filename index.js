@@ -46,6 +46,8 @@ async function searchNearby(placeCoordinates) {
 	const nearPlaces = await fetch(
 		`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${placeCoordinates[1]},${placeCoordinates[0]}&radius=5000&type=restaurant&key=${apiKey}`
 	);
+
+
 	const nearArr = await nearPlaces.json();
 
 	const nearFiltered = nearArr.results.filter(
@@ -56,7 +58,7 @@ async function searchNearby(placeCoordinates) {
 }
 
 async function getDetails(obj) {
-	if (obj?.place_id) {
+	if(obj?.place_id) {
 		const details = await placeDetails({
 			params: {
 				key: apiKey,
@@ -65,6 +67,7 @@ async function getDetails(obj) {
 			},
 			timeout: 1000,
 		});
+		console.log(details)
 		return { details_photos: details.data.result.photos, formatted_address: details.data.result.formatted_address, ...obj };
 	} else {
 		throw new Error('details no obj?.place_id');
@@ -175,6 +178,8 @@ async function uploadTweetImages(obj) {
 }
 
 function tweet(obj) {
+	
+	
 	return new Promise((resolve, reject) => {
 		const params = {
 			status: `${obj.name}
