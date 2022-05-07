@@ -177,7 +177,8 @@ async function uploadTweetImages(obj) {
 function tweet(obj) {
 	return new Promise((resolve, reject) => {
 		const params = {
-			status: `${obj.name}, 
+			status: `${obj.name}
+			
 			${obj.formatted_address} 
 			https://www.google.com/maps/place/?q=place_id:${obj.place_id}`,
 			media_ids: obj.mediaIds,
